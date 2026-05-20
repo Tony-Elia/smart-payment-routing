@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: 'postgres:15-alpine'
+    container_name: 'fawry-postgres'
+    environment:
+      - 'POSTGRES_DB=fawry'
+      - 'POSTGRES_PASSWORD=fawery-password'
+      - 'POSTGRES_USER=fawry-user'
+    ports:
+      - '5432'
