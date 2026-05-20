@@ -1,34 +1,54 @@
 package com.example.fawrypaymentrouting.biller.api;
 
-import com.example.fawrypaymentrouting.biller.model.Biller;
-import com.example.fawrypaymentrouting.biller.repository.BillerRepository;
-import com.example.fawrypaymentrouting.shared.exception.ResourceConflictException;
+import com.example.fawrypaymentrouting.biller.dto.BillerRequestDTO;
+import com.example.fawrypaymentrouting.biller.dto.BillerResponseDTO;
+import com.example.fawrypaymentrouting.biller.service.BillerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/billers")
 @RequiredArgsConstructor
 public class BillerController {
 
-    private final BillerRepository billerRepository;
+    private final BillerService billerService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Biller> getAllBillers() {
-        return billerRepository.findAll();
+    public Page<BillerResponseDTO> getAllBillers(Pageable pageable) {
+        return billerService.findAll(pageable);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BillerResponseDTO getBillerById(@PathVariable UUID id) {
+        return billerService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Biller createBiller(@RequestBody Biller biller) {
-        if (billerRepository.existsById(biller.getId())) {
-            throw new ResourceConflictException("Biller with ID already exists");
-        }
-        return billerRepository.save(biller);
+    public BillerResponseDTO createBiller(@Valid @RequestBody BillerRequestDTO request) {
+        return billerService.create(request);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BillerResponseDTO updateBiller(@PathVariable UUID id, @Valid @RequestBody BillerRequestDTO request) {
+        return billerService.update(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, String> deleteBiller(@PathVariable UUID id) {
+        billerService.delete(id);
+
+        return Map.of("message", "Biller deleted successfully");
     }
 }

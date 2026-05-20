@@ -75,4 +75,6 @@ This project strictly follows a **Base Exception Hierarchy** and uses a centrali
 3. **Categorical Throws ONLY:** Use exceptions extending `BaseBusinessException` (e.g., `ResourceConflictException`, `ResourceNotFoundException`).
 4. **NO Controller Try-Catch:** Controllers must be completely ignorant of exception handling.
 5. **The Global Choke Point:** `GlobalExceptionHandler.java` catches `BaseBusinessException` to guarantee a consistent JSON format: `{ "timestamp": "...", "status": 400, "error": "...", "message": "..." }`
+6. **Response Status Annotations:** Prefer using `@ResponseStatus(HttpStatus.XXX)` instead of returning `ResponseEntity` when only wrapping an object with an HTTP status.
+7. **Extensive Validation:** Prefer using `@PositiveOrZero` or any additional logical validation rules along with `@NotNull` on DTOs representing API payloads. Ensure each domain explicitly translates inbound payloads into DTOs instead of passing JPA DB Entities as request/response params.
 --- END AGENTS.md APPEND ---
