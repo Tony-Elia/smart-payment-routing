@@ -47,7 +47,7 @@ public class PaymentTransaction {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
+    
     // For Split Support (Bonus Task)
     @Column(name = "parent_transaction_id")
     private UUID parentTransactionId;

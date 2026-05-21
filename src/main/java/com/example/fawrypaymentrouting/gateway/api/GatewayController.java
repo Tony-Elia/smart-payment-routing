@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -42,8 +43,10 @@ public class GatewayController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteGateway(@PathVariable UUID id) {
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, String> deleteGateway(@PathVariable UUID id) {
         gatewayService.delete(id);
+
+        return Map.of("message", "Biller deleted successfully");
     }
 }

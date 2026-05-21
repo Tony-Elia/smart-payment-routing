@@ -3,6 +3,7 @@ import com.example.fawrypaymentrouting.gateway.dto.GatewayRequestDto;
 import com.example.fawrypaymentrouting.gateway.dto.GatewayResponseDto;
 import com.example.fawrypaymentrouting.gateway.model.Gateway;
 import com.example.fawrypaymentrouting.gateway.repository.GatewayRepository;
+import com.example.fawrypaymentrouting.payment.repository.PaymentTransactionRepository;
 import com.example.fawrypaymentrouting.shared.exception.ResourceConflictException;
 import com.example.fawrypaymentrouting.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class GatewayService {
 
     private final GatewayRepository gatewayRepository;
     private final GatewayMapper gatewayMapper;
+    private final PaymentTransactionRepository txRepository;
 
     @Transactional(readOnly = true)
     public List<GatewayResponseDto> findAll() {
@@ -61,6 +63,9 @@ public class GatewayService {
         // check if the gateway exists first to throw 404 if not found
         if(!gatewayRepository.existsById(id))
             throw new ResourceNotFoundException("Gateway not found");
+
+        if(txRepository.existsByGatewayId(id))
+            throw new ResourceConflictException("Cannot delete gateway with existing transactions");
 
         gatewayRepository.deleteById(id);
     }

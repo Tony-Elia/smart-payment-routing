@@ -7,6 +7,5 @@ import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
 public record BillerRequestDTO(
-        @NotBlank String name,
-        @NotNull @PositiveOrZero BigDecimal dailyQuota
+        @NotBlank String name
 ) {}

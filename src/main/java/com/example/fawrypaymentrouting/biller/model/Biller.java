@@ -21,8 +21,4 @@ public class Biller {
 
     @Column(nullable = false)
     private String name;
-
-    // The maximum total amount this biller can process per day across ALL gateways
-    @Column(name = "daily_quota", nullable = false)
-    private BigDecimal dailyQuota;
 }

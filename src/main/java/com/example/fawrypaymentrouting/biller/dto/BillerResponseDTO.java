@@ -5,6 +5,5 @@ import java.util.UUID;
 
 public record BillerResponseDTO(
         UUID id,
-        String name,
-        BigDecimal dailyQuota
+        String name
 ) {}
