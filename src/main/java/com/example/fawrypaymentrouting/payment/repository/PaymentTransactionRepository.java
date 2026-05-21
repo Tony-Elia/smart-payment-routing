@@ -46,6 +46,7 @@ public interface PaymentTransactionRepository extends JpaRepository<PaymentTrans
         FROM PaymentTransaction t
         WHERE t.biller.id = :billerId
           AND t.createdAt BETWEEN :start AND :end
+          AND t.status = com.example.fawrypaymentrouting.payment.model.TransactionStatus.SUCCESS
         GROUP BY t.gateway.name
     """)
     List<GatewaySummaryDto> getDailyGatewaySummaries(
