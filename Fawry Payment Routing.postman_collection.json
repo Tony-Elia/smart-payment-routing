@@ -1,0 +1,1547 @@
+{
+  "info": {
+    "_postman_id": "50759a34-cea2-414b-a5c9-1661ba683e1b",
+    "name": "Fawry Payment Routing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52887035"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.collectionVariables.set(\"token\", json.token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Gateways",
+      "item": [
+        {
+          "name": "List All Gateways",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/gateways",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "gateways"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List All Gateways",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/gateways",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "gateways"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2013"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 21 May 2026 11:44:53 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"2a214e82-71eb-405d-9047-f19d592c61c5\",\n        \"name\": \"Vodafone Cash\",\n        \"commissionFixed\": 2,\n        \"commissionPercentage\": 0.01,\n        \"dailyLimit\": 500000,\n        \"minTransaction\": 10,\n        \"maxTransaction\": 30000,\n        \"processingTimeInHours\": 0,\n        \"available247\": true,\n        \"availabilityWindows\": [],\n        \"active\": true\n    },\n    {\n        \"id\": \"4b0e4885-5c40-4a18-82b3-eb4de68b923d\",\n        \"name\": \"Aman Stores\",\n        \"commissionFixed\": 5,\n        \"commissionPercentage\": 0.02,\n        \"dailyLimit\": 1000000,\n        \"minTransaction\": 50,\n        \"maxTransaction\": 100000,\n        \"processingTimeInHours\": 0,\n        \"available247\": false,\n        \"availabilityWindows\": [\n            {\n                \"dayOfWeek\": \"MONDAY\",\n                \"startTime\": \"08:00:00\",\n                \"endTime\": \"22:00:00\"\n            },\n            {\n                \"dayOfWeek\": \"TUESDAY\",\n                \"startTime\": \"08:00:00\",\n                \"endTime\": \"22:00:00\"\n            },\n            {\n                \"dayOfWeek\": \"WEDNESDAY\",\n                \"startTime\": \"08:00:00\",\n                \"endTime\": \"22:00:00\"\n            },\n            {\n                \"dayOfWeek\": \"THURSDAY\",\n                \"startTime\": \"08:00:00\",\n                \"endTime\": \"22:00:00\"\n            },\n            {\n                \"dayOfWeek\": \"FRIDAY\",\n                \"startTime\": \"08:00:00\",\n                \"endTime\": \"22:00:00\"\n            },\n            {\n                \"dayOfWeek\": \"SATURDAY\",\n                \"startTime\": \"08:00:00\",\n                \"endTime\": \"22:00:00\"\n            },\n            {\n                \"dayOfWeek\": \"SUNDAY\",\n                \"startTime\": \"08:00:00\",\n                \"endTime\": \"22:00:00\"\n            }\n        ],\n        \"active\": true\n    },\n    {\n        \"id\": \"a6c556c6-c50e-457d-a1b3-f09eb7c96efe\",\n        \"name\": \"CIB Bank Transfer\",\n        \"commissionFixed\": 0,\n        \"commissionPercentage\": 0.01,\n        \"dailyLimit\": 10000000,\n        \"minTransaction\": 1000,\n        \"maxTransaction\": null,\n        \"processingTimeInHours\": 24,\n        \"available247\": true,\n        \"availabilityWindows\": [],\n        \"active\": true\n    },\n    {\n        \"id\": \"fdcc9189-ef8b-4efc-875b-ad618806bbbe\",\n        \"name\": \"Fawry Legacy POS\",\n        \"commissionFixed\": 1,\n        \"commissionPercentage\": 0.01,\n        \"dailyLimit\": 100000,\n        \"minTransaction\": 1,\n        \"maxTransaction\": 5000,\n        \"processingTimeInHours\": 0,\n        \"available247\": true,\n        \"availabilityWindows\": [],\n        \"active\": false\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Get Gateway By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/gateways/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "gateways",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "6c88aaf5-7e82-4c04-a95d-3c6c72d55e42"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Gateway By ID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/gateways/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "gateways",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "6c88aaf5-7e82-4c04-a95d-3c6c72d55e42"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "513"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 12:55:43 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"6c88aaf5-7e82-4c04-a95d-3c6c72d55e42\",\n    \"name\": \"Fawry\",\n    \"commissionFixed\": 2.5,\n    \"commissionPercentage\": 1.5,\n    \"dailyLimit\": 500000,\n    \"minTransaction\": 10,\n    \"maxTransaction\": 100000,\n    \"processingTimeInHours\": 0,\n    \"available247\": false,\n    \"availabilityWindows\": [\n        {\n            \"dayOfWeek\": \"SUNDAY\",\n            \"startTime\": \"08:00:00\",\n            \"endTime\": \"22:00:00\"\n        },\n        {\n            \"dayOfWeek\": \"MONDAY\",\n            \"startTime\": \"08:00:00\",\n            \"endTime\": \"22:00:00\"\n        }\n    ],\n    \"active\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Gateway",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  // The unique identifier name for the gateway\n  \"name\": \"Bank\",\n  \n  // Fixed fee applied to every transaction (e.g., 2.50 EGP)\n  \"commissionFixed\": 2.50,\n  \n  // Percentage fee applied to every transaction (e.g., 1.5%)\n  \"commissionPercentage\": 1.5,\n  \n  // Maximum total amount that can be processed per day\n  \"dailyLimit\": 500000.00,\n  \n  // Minimum allowed per single transaction\n  \"minTransaction\": 10.00,\n  \n  // Maximum allowed per single transaction (optional, can be null or removed)\n  \"maxTransaction\": 10000.00,\n  \n  // Hours it takes for the transaction to fully settle\n  \"processingTimeInHours\": 24.0,\n  \n  // Set to false to enforce the availabilityWindows below\n  \"available247\": false,\n  \n  // Optional flag (defaults to true if omitted)\n  \"active\": true,\n  \n  // Defines when the gateway is awake and accepting traffic\n  \"availabilityWindows\": [\n    {\n      \"dayOfWeek\": \"SUNDAY\",\n      \"startTime\": \"08:00:00\",\n      \"endTime\": \"23:00:00\"\n    },\n    {\n      \"dayOfWeek\": \"MONDAY\",\n      \"startTime\": \"08:00:00\",\n      \"endTime\": \"23:00:00\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/gateways",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "gateways"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Bank\",\n  \"commissionFixed\": 2.50,\n  \"commissionPercentage\": 1.5,\n  \"dailyLimit\": 500000.00,\n  \"minTransaction\": 10.00,\n  \"maxTransaction\": 100000.00,\n  \"processingTimeInHours\": 0.0,\n  \"available247\": false,\n  \"availabilityWindows\": [\n    {\n      \"dayOfWeek\": \"SUNDAY\",\n      \"startTime\": \"08:00:00\",\n      \"endTime\": \"22:00:00\"\n    },\n    {\n      \"dayOfWeek\": \"MONDAY\",\n      \"startTime\": \"08:00:00\",\n      \"endTime\": \"22:00:00\"\n    }\n  ]\n//   \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/gateways",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "gateways"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 14:33:53 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"df869c97-7798-4015-a08d-69de6134ac4d\",\n    \"name\": \"Bank\",\n    \"commissionFixed\": 2.5,\n    \"commissionPercentage\": 1.5,\n    \"dailyLimit\": 500000,\n    \"minTransaction\": 10,\n    \"maxTransaction\": null,\n    \"processingTimeInHours\": 0,\n    \"available247\": false,\n    \"availabilityWindows\": [\n        {\n            \"dayOfWeek\": \"SUNDAY\",\n            \"startTime\": \"08:00:00\",\n            \"endTime\": \"22:00:00\"\n        },\n        {\n            \"dayOfWeek\": \"MONDAY\",\n            \"startTime\": \"08:00:00\",\n            \"endTime\": \"22:00:00\"\n        }\n    ],\n    \"active\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Gateway",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  // Must match the existing name unless you intend to rename it\n  \"name\": \"Bank\",\n  \n  // Lowering the fixed commission\n  \"commissionFixed\": 1.00,\n  \n  // Keeping the percentage the same\n  \"commissionPercentage\": 1.5,\n  \n  // Increasing the daily limit capacity\n  \"dailyLimit\": 1000000.00,\n  \n  \"minTransaction\": 10.00,\n  \"maxTransaction\": 50000.00,\n  \n  // Gateway now settles much faster\n  \"processingTimeInHours\": 1.0,\n  \n  // Flipping to 24/7 mode\n  \"available247\": true,\n  \n  // Because available247 is true, we can wipe out the specific schedules\n  \"availabilityWindows\": [],\n  \n  // Keeping the gateway active\n  \"active\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/gateways/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "gateways",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "df869c97-7798-4015-a08d-69de6134ac4d"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update Gateway",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  // Must match the existing name unless you intend to rename it\n  \"name\": \"Bank\",\n  \n  // Lowering the fixed commission\n  \"commissionFixed\": 1.00,\n  \n  // Keeping the percentage the same\n  \"commissionPercentage\": 1.5,\n  \n  // Increasing the daily limit capacity\n  \"dailyLimit\": 1000000.00,\n  \n  \"minTransaction\": 10.00,\n  \"maxTransaction\": 50000.00,\n  \n  // Gateway now settles much faster\n  \"processingTimeInHours\": 1.0,\n  \n  // Flipping to 24/7 mode\n  \"available247\": true,\n  \n  // Because available247 is true, we can wipe out the specific schedules\n  \"availabilityWindows\": [],\n  \n  // Keeping the gateway active\n  \"active\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/gateways/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "gateways",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "df869c97-7798-4015-a08d-69de6134ac4d"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "326"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 15:21:16 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"df869c97-7798-4015-a08d-69de6134ac4d\",\n    \"name\": \"Bank\",\n    \"commissionFixed\": 1,\n    \"commissionPercentage\": 1.5,\n    \"dailyLimit\": 1000000,\n    \"minTransaction\": 10,\n    \"maxTransaction\": 50000,\n    \"processingTimeInHours\": 1,\n    \"available247\": true,\n    \"availabilityWindows\": [],\n    \"active\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Gateway",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/gateways/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "gateways",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "5353cbbc-a02d-4ce5-becb-3c3eb7f98ba8"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/gateways/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "gateways",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1ecb0b0c-f27d-4f5e-bc12-67d616810da0"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "48"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 18 May 2026 15:19:33 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Gateway deleted successfully\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Billers",
+      "item": [
+        {
+          "name": "Get All Billers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/billers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "billers"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get All Billers",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/billers",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "billers"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "213"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 21 May 2026 18:52:22 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"content\": [\n        {\n            \"id\": \"b0db9b74-83b6-4fd4-849a-9d724ca6cf9f\",\n            \"name\": \"Global Tech Services\"\n        }\n    ],\n    \"page\": {\n        \"size\": 20,\n        \"number\": 0,\n        \"totalElements\": 1,\n        \"totalPages\": 1\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Biller",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  // The name of the organization or biller (Must not be blank)\n  \"name\": \"Tony\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/billers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "billers"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create Biller",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  // The name of the organization or biller (Must not be blank)\n  \"name\": \"Global Tech Services\",\n  \n  // The maximum total transaction amount this biller can process per day across ALL gateways\n  // Must be 0 or greater (e.g., 50000.00 EGP)\n  \"dailyQuota\": 50000.00\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/billers",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "billers"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "113"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 20 May 2026 20:50:12 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"dee9da38-4b00-4185-9434-9f4811a40ade\",\n    \"name\": \"Global Tech Services\",\n    \"dailyQuota\": 50000\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Biller",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  // Updating the name of the biller\n  \"name\": \"Global Tech Services LLC\",\n  \n  // Increasing their daily transaction quota limit\n  \"dailyQuota\": 100000.00\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/billers/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "billers",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "e3b97696-b40f-4238-ba41-823109d50778"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update Biller",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  // Updating the name of the biller\n  \"name\": \"Global Tech Services LLC\",\n  \n  // Increasing their daily transaction quota limit\n  \"dailyQuota\": 100000.00\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/billers/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "billers",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "e3b97696-b40f-4238-ba41-823109d50778"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "118"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 20 May 2026 20:52:58 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"e3b97696-b40f-4238-ba41-823109d50778\",\n    \"name\": \"Global Tech Services LLC\",\n    \"dailyQuota\": 100000\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Biller",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/billers/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "billers",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "e3b97696-b40f-4238-ba41-823109d50778"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete Biller",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/billers/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "billers",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "e3b97696-b40f-4238-ba41-823109d50778"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "47"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 20 May 2026 20:53:47 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Biller deleted successfully\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "List All Txs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/payments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payments"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "List All Txs",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/payments",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "485"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 21 May 2026 18:52:09 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"content\": [\n        {\n            \"id\": \"05906371-abcf-4044-85b8-f17be043bf74\",\n            \"billerId\": \"b0db9b74-83b6-4fd4-849a-9d724ca6cf9f\",\n            \"gatewayId\": \"2a214e82-71eb-405d-9047-f19d592c61c5\",\n            \"amount\": 200000,\n            \"commissionApplied\": 22,\n            \"urgency\": \"CAN_WAIT\",\n            \"status\": \"SUCCESS\",\n            \"createdAt\": \"2026-05-21T15:59:35.98087\",\n            \"parentTransactionId\": null\n        }\n    ],\n    \"page\": {\n        \"size\": 20,\n        \"number\": 0,\n        \"totalElements\": 1,\n        \"totalPages\": 1\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Tx",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"billerId\": \"{{billerId}}\",\n    \"gatewayId\": \"2a214e82-71eb-405d-9047-f19d592c61c5\",\n    \"amount\": 30000,\n    \"urgency\": \"CAN_WAIT\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/payments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payments"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create Tx",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"billerId\": \"{{billerId}}\",\n    \"gatewayId\": \"2a214e82-71eb-405d-9047-f19d592c61c5\",\n    \"amount\": 1,\n    \"urgency\": \"CAN_WAIT\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payments",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payments"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "338"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 21 May 2026 12:59:46 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"e2821669-8373-4efa-a522-0900e67a72c3\",\n    \"billerId\": \"b0db9b74-83b6-4fd4-849a-9d724ca6cf9f\",\n    \"gatewayId\": \"2a214e82-71eb-405d-9047-f19d592c61c5\",\n    \"amount\": 1,\n    \"commissionApplied\": 2,\n    \"urgency\": \"CAN_WAIT\",\n    \"status\": \"SUCCESS\",\n    \"createdAt\": \"2026-05-21T15:59:46.08774314\",\n    \"parentTransactionId\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Recommend Gateway",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"billerId\": \"{{billerId}}\",\n    \"amount\": 30000.00,\n    \"urgency\": \"INSTANT\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/payments/recommend",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payments",
+                "recommend"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Recommend Gateway",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"billerId\": \"{{billerId}}\",\n    \"amount\": 5000.00,\n    \"urgency\": \"INSTANT\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payments/recommend",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "recommend"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "204"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 21 May 2026 15:43:19 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"recommendedGateway\": {\n        \"id\": \"4b0e4885-5c40-4a18-82b3-eb4de68b923d\",\n        \"name\": \"Aman Stores\",\n        \"estimatedCommission\": 6,\n        \"processingTime\": \"Instant\"\n    },\n    \"alternatives\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Recommend Splitted Gateway",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"billerId\": \"{{billerId}}\",\n    \"amount\": 111000.00,\n    \"urgency\": \"INSTANT\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/payments/split",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payments",
+                "split"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Recommend Splitted Gateway",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"billerId\": \"{{billerId}}\",\n    \"amount\": 111000.00,\n    \"urgency\": \"INSTANT\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/payments/split",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "split"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "268"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 21 May 2026 16:22:32 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"selectedGateway\": \"Vodafone Cash\",\n    \"selectedGatewayId\": \"2a214e82-71eb-405d-9047-f19d592c61c5\",\n    \"requiresSplitting\": true,\n    \"splits\": [\n        27750,\n        27750,\n        27750,\n        27750\n    ],\n    \"totalCommission\": 15.12,\n    \"quotaAvailable\": true,\n    \"splitCount\": 4\n}"
+            }
+          ]
+        },
+        {
+          "name": "Transaction History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/billers/:billerId/transactions?date=2026-05-21",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "billers",
+                ":billerId",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2026-05-21"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "billerId",
+                  "value": "b0db9b74-83b6-4fd4-849a-9d724ca6cf9f"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Transaction History",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/billers/:billerId/transactions?date=2026-05-21",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "billers",
+                    ":billerId",
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "2026-05-21"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "billerId",
+                      "value": "b0db9b74-83b6-4fd4-849a-9d724ca6cf9f"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "661"
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 21 May 2026 18:52:01 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"date\": \"2026-05-21\",\n    \"totalAmountProcessed\": 200000,\n    \"totalCommissionCharged\": 22,\n    \"gatewayBreakdown\": [\n        {\n            \"gatewayName\": \"Vodafone Cash\",\n            \"transactionCount\": 1,\n            \"totalAmount\": 200000,\n            \"totalCommission\": 22\n        }\n    ],\n    \"transactions\": {\n        \"content\": [\n            {\n                \"transactionId\": \"05906371-abcf-4044-85b8-f17be043bf74\",\n                \"amount\": 200000,\n                \"commission\": 22,\n                \"gatewayName\": \"Vodafone Cash\",\n                \"status\": \"SUCCESS\",\n                \"timestamp\": \"2026-05-21T15:59:35.98087\"\n            }\n        ],\n        \"page\": {\n            \"size\": 20,\n            \"number\": 0,\n            \"totalElements\": 1,\n            \"totalPages\": 1\n        }\n    }\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": ""
+    },
+    {
+      "key": "billerId",
+      "value": ""
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
