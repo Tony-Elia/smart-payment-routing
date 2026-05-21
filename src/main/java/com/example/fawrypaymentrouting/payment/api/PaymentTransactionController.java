@@ -1,9 +1,6 @@
 package com.example.fawrypaymentrouting.payment.api;
 
-import com.example.fawrypaymentrouting.payment.dto.PaymentTransactionRequestDto;
-import com.example.fawrypaymentrouting.payment.dto.PaymentTransactionResponseDto;
-import com.example.fawrypaymentrouting.payment.dto.PaymentRecommendationRequestDto;
-import com.example.fawrypaymentrouting.payment.dto.PaymentRecommendationResponseDto;
+import com.example.fawrypaymentrouting.payment.dto.*;
 import com.example.fawrypaymentrouting.payment.service.PaymentTransactionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +32,11 @@ public class PaymentTransactionController {
     @ResponseStatus(HttpStatus.OK)
     public PaymentRecommendationResponseDto recommendGateway(@Valid @RequestBody PaymentRecommendationRequestDto request) {
         return transactionService.recommendGateway(request);
+    }
+
+    @PostMapping("/split")
+    @ResponseStatus(HttpStatus.OK)
+    public PaymentSplitResponseDto splitPayment(@Valid @RequestBody PaymentRecommendationRequestDto request) {
+        return transactionService.recommendSplit(request);
     }
 }

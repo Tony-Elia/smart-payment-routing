@@ -90,8 +90,14 @@ public class Gateway {
     }
 
     public boolean isValidAmount(BigDecimal amount) {
-        if (amount == null) return false;
-        if (amount.compareTo(minTransaction) < 0) return false;
-        return maxTransaction == null || amount.compareTo(maxTransaction) <= 0;
+        return meetsMaxLimit(amount) && meetsMinLimit(amount);
+    }
+
+    public boolean meetsMaxLimit(BigDecimal amount) {
+        return amount != null && (maxTransaction == null || amount.compareTo(maxTransaction) <= 0);
+    }
+
+    public boolean meetsMinLimit(BigDecimal amount) {
+        return amount != null && amount.compareTo(minTransaction) >= 0;
     }
 }
