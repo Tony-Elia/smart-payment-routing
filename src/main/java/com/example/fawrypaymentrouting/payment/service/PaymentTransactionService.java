@@ -57,6 +57,36 @@ public class PaymentTransactionService {
         Gateway gateway = gatewayRepository.findById(request.gatewayId())
                 .orElseThrow(() -> new ResourceNotFoundException("Gateway not found"));
 
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime startOfDay = now.toLocalDate().atStartOfDay();
+        LocalDateTime endOfDay = now.toLocalDate().plusDays(1).atStartOfDay();
+
+        if (!gateway.isActive()) {
+            throw new ResourceConflictException("Gateway is inactive.");
+        }
+
+        if (!gateway.isAvailableAt(now)) {
+            throw new ResourceConflictException("Gateway is currently out of operating hours.");
+        }
+
+        if (!isUrgencyMatch(gateway, request.urgency())) {
+            throw new ResourceConflictException("Gateway does not support the requested urgency level.");
+        }
+
+        if (!gateway.isValidAmount(request.amount())) {
+            throw new ResourceConflictException("Amount is strictly outside minimum/maximum gateway limits.");
+        }
+
+        BigDecimal dailyUsage = transactionRepository.getDailyUsageForGatewayAndBiller(
+                biller.getId(),
+                gateway.getId(),
+                startOfDay,
+                endOfDay
+        );
+        if (dailyUsage.add(request.amount()).compareTo(gateway.getDailyLimit()) > 0) {
+            throw new ResourceConflictException("Biller has reached the daily limit with this gateway.");
+        }
+
         PaymentTransaction transaction = transactionMapper.toEntity(request);
         transaction.setBiller(biller);
         transaction.setGateway(gateway);
@@ -76,7 +106,6 @@ public class PaymentTransactionService {
 
         List<Gateway> eligibleGateways = findEligibleGateways(
                 request,
-                usageMap,
                 g -> g.isValidAmount(request.amount()), // Strict amount check
                 g -> hasSufficientBillerQuotaOnGateway(usageMap, g, request.amount()), // Strict quota check
                 Comparator.comparing((Gateway g) -> g.calculateCommission(request.amount()))
@@ -111,7 +140,6 @@ public class PaymentTransactionService {
 
         List<Gateway> eligibleGateways = findEligibleGateways(
                 request,
-                usageMap,
                 g -> g.meetsMinLimit(request.amount()), // Only enforce minimum limit
                 g -> true, // Dynamic Quota: We do not filter by qouta availability for split routing
                 Comparator.comparing((Gateway g) -> calculateProjectedSplitCommission(request.amount(), g))
@@ -152,7 +180,6 @@ public class PaymentTransactionService {
 
     private List<Gateway> findEligibleGateways(
             PaymentRecommendationRequestDto request,
-            Map<UUID, BigDecimal> usageMap,
             Predicate<Gateway> amountFilter,
             Predicate<Gateway> quotaFilter,
             Comparator<Gateway> sorter) {

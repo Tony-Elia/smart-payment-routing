@@ -24,6 +24,9 @@ public interface PaymentTransactionRepository extends JpaRepository<PaymentTrans
     @Query("SELECT t.gateway.id AS gatewayId, COALESCE(SUM(t.amount), 0) AS usage FROM PaymentTransaction t WHERE t.biller.id = :billerId AND t.createdAt >= :startOfDay AND t.createdAt < :endOfDay GROUP BY t.gateway.id")
     List<GatewayUsage> getDailyUsagePerGatewayForBiller(@Param("billerId") UUID billerId, @Param("startOfDay") LocalDateTime startOfDay, @Param("endOfDay") LocalDateTime endOfDay);
 
+    @Query("SELECT COALESCE(SUM(t.amount), 0) FROM PaymentTransaction t WHERE t.biller.id = :billerId AND t.createdAt >= :startOfDay AND t.createdAt < :endOfDay")
+    BigDecimal getDailyUsageForGatewayAndBiller(@Param("billerId") UUID billerId, @Param("gatewayId") UUID gatewayId, @Param("startOfDay") LocalDateTime startOfDay, @Param("endOfDay") LocalDateTime endOfDay);
+
     boolean existsByGatewayId(UUID id);
 
     Page<PaymentTransaction> findAllByBillerIdAndCreatedAtBetween(
